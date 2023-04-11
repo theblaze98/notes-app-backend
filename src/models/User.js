@@ -1,5 +1,6 @@
 import { Schema, Types, model } from 'mongoose';
 import bcryptjs from 'bcryptjs';
+import JWT from 'jsonwebtoken';
 
 const { hash, compare } = bcryptjs;
 
@@ -23,5 +24,11 @@ UserSchema.pre('save', async function (next) {
 UserSchema.methods.comparePassword = async function(password) {
 	return await compare(password, this.password);
 };
+
+UserSchema.methods.getToken = function() {
+	return JWT.sign({id: this._id}, process.env.JWT_SECRET, {
+		expiresIn: process.env.JWT_EXPIRE
+	});
+}
 
 export default model('user', UserSchema);

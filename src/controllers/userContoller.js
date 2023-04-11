@@ -2,9 +2,8 @@ import JWT from 'jsonwebtoken';
 import User from '../models/User.js';
 
 export const signup = async (req, res) => {
-	const { username, email, password } = req.body;
-
 	try {
+		const { username, email, password } = req.body;
 		const user = await User.findOne({ $or: [{ username }, { email }] });
 
 		if (user) {
@@ -31,18 +30,49 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-	const { userID, password } = req.body;
+	try {
+		const { userID, password } = req.body;
 
-	const user = User.findOne({$or: [{email: userID}, {username: userID}]}).select('+password');
+		const user = await User.findOne({
+			$or: [{ email: userID }, { username: userID }],
+		}).select('+password');
 
-	if (!user) {
-		res.status(400).json({msg: "USER_NOT_EXIST"});
-		return;
+		if (!user) {
+			res.status(400).json({ msg: 'USER_NOT_EXIST' });
+			return;
+		}
+
+		const passwordCompare = await user.comparePassword(password);
+
+		console.log(passwordCompare);
+
+		if (passwordCompare) {
+			const token = await user.getToken();
+			res.status(201).json({token});
+			return;
+		} else {
+			res.status(401).json({msg: 'INVALID_PASSWORD'});
+		}
+	} catch (error) {
+		res.status(500).json({ msg: `${error.message}` });
 	}
+};
 
-	const passwordCompare = await user.comparePassword(password);
+export const isAutenticated = async (req, res) => {
+	try {
+		const { token } = req.body;
 
-	console.log(passwordCompare);
+		const decoded = JWT.verify(token, process.env.JWT_SECRET);
 
-	res.json({msg: "h"});
+		const user = await User.findById(decoded.id);
+
+		if (!user) {
+			res.status(401).json({msg: 'NOT_AUTHENTICATED'});
+			return;
+		}
+
+		res.status(200).json({decoded});
+	} catch (error) {
+		res.status(500).json({msg: `${error.message}`});
+	}
 }
