@@ -3,7 +3,7 @@ import { config } from "dotenv";
 
 config();
 
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI_ATLAS;
 // console.log(MONGO_URI);
 (async () => {
   const db = await connect(MONGO_URI).catch((err) => console.error(err));

@@ -1,73 +1,84 @@
-import JWT from "jsonwebtoken";
-import User from "../models/User.js";
-import { validationError } from "../utils/index.js";
+import JWT from 'jsonwebtoken';
+import User from '../models/User.js';
+import { validationError } from '../utils/index.js';
 
 export const signup = async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
+	try {
+		const { username, email, password } = req.body;
 
-    const newUser = new User({
-      username,
-      email,
-      password,
-    });
+		const newUser = new User({
+			username,
+			email,
+			password,
+		});
 
-    await newUser.save();
+		await newUser.save();
 
-    res.status(201).json({ msg: "USER_CREATED" });
-  } catch (error) {
-    if (error.message.includes("duplicate key")) {
-      const errorDescription = validationError("DUPLICATE_KEY");
-      return res
-        .status(errorDescription.statusCode)
-        .json({ msg: errorDescription.message });
-    }
-    const errorDescription = validationError(error.message);
-    return res
-      .status(errorDescription.statusCode)
-      .json({ msg: errorDescription.message });
-  }
+		res.status(201).json({ msg: 'USER_CREATED' });
+	} catch (error) {
+		if (error.message.includes('duplicate key')) {
+			if (error.message.includes('username')) {
+				const errorDescription = validationError(
+					'DUPLICATE_KEY_USERNAME'
+				);
+				return res
+					.status(errorDescription.statusCode)
+					.json({ msg: errorDescription.message });
+			}
+			if (error.message.includes('email')) {
+				const errorDescription = validationError('DUPLICATE_KEY_EMAIL');
+				return res
+					.status(errorDescription.statusCode)
+					.json({ msg: errorDescription.message });
+			}
+		}
+
+		const errorDescription = validationError(error.message);
+		return res
+			.status(errorDescription.statusCode)
+			.json({ msg: errorDescription.message });
+	}
 };
 
 export const login = async (req, res) => {
-  try {
-    const { userID, password } = req.body;
+	try {
+		const { userID, password } = req.body;
 
-    const user = await User.findOne({
-      $or: [{ email: userID }, { username: userID }],
-    }).select("+password");
+		const user = await User.findOne({
+			$or: [{ email: userID }, { username: userID }],
+		}).select('+password');
 
-    if (!user) return res.status(401).json({ msg: "USER_NOT_EXIST" });
+		if (!user) return res.status(401).json({ msg: 'USER_NOT_EXIST' });
 
-    const passwordCompare = await user.comparePassword(password);
+		const passwordCompare = await user.comparePassword(password);
 
-    if (!passwordCompare) {
-      return res.status(401).json({ msg: "INVALID_PASSWORD" });
-    }
+		if (!passwordCompare) {
+			return res.status(401).json({ msg: 'INVALID_PASSWORD' });
+		}
 
-    const token = await user.getToken();
+		const token = await user.getToken();
 
-    return res.status(201).json({ token });
-  } catch (error) {
-    res.status(500).json({ msg: `${error.message}` });
-  }
+		return res.status(201).json({ token });
+	} catch (error) {
+		res.status(500).json({ msg: `${error.message}` });
+	}
 };
 
 export const isAutenticated = async (req, res) => {
-  try {
-    const { token } = req.body;
+	try {
+		const { token } = req.body;
 
-    const decoded = JWT.verify(token, process.env.JWT_SECRET);
+		const decoded = JWT.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decoded.id);
+		const user = await User.findById(decoded.id);
 
-    if (!user) {
-      res.status(401).json({ msg: "NOT_AUTHENTICATED" });
-      return;
-    }
+		if (!user) {
+			res.status(401).json({ msg: 'NOT_AUTHENTICATED' });
+			return;
+		}
 
-    res.status(200).json({ decoded });
-  } catch (error) {
-    res.status(500).json({ msg: `${error.message}` });
-  }
+		res.status(200).json({ decoded });
+	} catch (error) {
+		res.status(500).json({ msg: `${error.message}` });
+	}
 };
