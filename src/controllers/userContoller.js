@@ -42,10 +42,10 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
 	try {
-		const { userID, password } = req.body;
+		const { username, password } = req.body;
 
 		const user = await User.findOne({
-			$or: [{ email: userID }, { username: userID }],
+			$or: [{ email: username }, { username: username }],
 		}).select('+password');
 
 		if (!user) return res.status(401).json({ msg: 'USER_NOT_EXIST' });
@@ -73,12 +73,26 @@ export const isAutenticated = async (req, res) => {
 		const user = await User.findById(decoded.id);
 
 		if (!user) {
-			res.status(401).json({ msg: 'NOT_AUTHENTICATED' });
-			return;
+			return res.status(401).json({ msg: 'NOT_AUTHENTICATED' });
 		}
 
-		res.status(200).json({ decoded });
+		return res.status(200).json({ msg: 'USER_AUTHENTICATED' });
 	} catch (error) {
-		res.status(500).json({ msg: `${error.message}` });
+		return res.status(500).json({ msg: `${error.message}` });
 	}
 };
+
+export const getUserData = async (req, res) => {
+	try {
+		const {token} = req.body;
+		const decoded = JWT.verify(token, process.env.JWT_SECRET);
+		const user = await User.findById(decoded.id);
+
+		if (!user) {
+			return res.status(401).json({msg: 'NOT_AUTHENTICATED'});
+		}
+		return res.status(200).json(user);
+	} catch (error) {
+		return res.status(500).json({msg: `${error.message}`});
+	}
+}
