@@ -3,7 +3,10 @@
     "moduleResolution": "node",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "lib": ["ESNext"],
+    "rootDir": "./src",
+    "module": "ESNext"
   },
   "exclude": ["node_modules"]
 }
