@@ -1,4 +1,4 @@
-import { createNoteService } from '../../services.js';
+import { createNoteService } from '../../services/index.js';
 
 const createNotesController = async (req, res) => {
   const { title, description } = req.body;

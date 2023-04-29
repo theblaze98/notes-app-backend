@@ -1,4 +1,4 @@
-import { createNoteValidator } from '../../validations/input';
+import { createNoteValidator } from '../../validations/input/index.js';
 import { ZodError } from 'zod';
 
 const createNoteMiddleware = (req, res, next) => {

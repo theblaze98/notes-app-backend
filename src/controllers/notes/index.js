@@ -1,1 +1,1 @@
-export { default as createNotesController } from './create_notes.controller';
+export { default as createNotesController } from './create_notes.controller.js';
