@@ -4,8 +4,8 @@ import { decryptPassword } from '@/utils/password_utilities';
 import TokenUtilities from '@/utils/token_utilities';
 
 const loginController = async (req, res) => {
-  const { username, password } = req.body;
-  const userDB = await getUserService({ username });
+  const { email, password } = req.body;
+  const userDB = await getUserService({ email });
   if (await decryptPassword(password, userDB.password)) {
     throw new UnauthorizedError('Invalid credentials');
   }
