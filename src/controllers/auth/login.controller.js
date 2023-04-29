@@ -14,12 +14,17 @@ const loginController = async (req, res) => {
 
   const accessToken = token.sign(
     { id: userDB._id },
+    process.env.ACCESS_TOKEN_SECRET,
     {
       expiresIn: '10m'
     }
   );
 
-  const refreshToken = token.sign({ id: userDB._id }, { expiresIn: '24h' });
+  const refreshToken = token.sign(
+    { id: userDB._id },
+    process.env.REFRESH_TOKEN_SECRET,
+    { expiresIn: '24h' }
+  );
 
   res.cookie('jwt', refreshToken, {
     maxAge: 24 * 60 * 60 * 1000,
