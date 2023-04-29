@@ -1,4 +1,4 @@
-import { getUserService } from '../../services';
+import { getUserService } from '../../services/index.js';
 
 const getUserController = async (req, res) => {
   const { id } = req.query;

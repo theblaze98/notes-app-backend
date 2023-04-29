@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../errors.js';
+import { BadRequestError } from '../../errors/index.js';
 import TokenUtilities from '../../utils/token_utilities.js';
 import isValidID from '../../utils/isValidID.js';
 
