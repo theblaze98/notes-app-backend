@@ -1,6 +1,6 @@
-import { BadRequestError } from '../../errors';
-import TokenUtilities from '../../utils/token_utilities';
-import isValidID from '../../utils/isValidID';
+import { BadRequestError } from '../../errors.js';
+import TokenUtilities from '../../utils/token_utilities.js';
+import isValidID from '../../utils/isValidID.js';
 
 const isAuthenticatedMiddleware = (req, res, next) => {
   try {
