@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const SignUpRequestValidation = (input) => {
+const signUpRequestValidation = (input) => {
   z.object({
     email: z.string().email(),
     username: z.string().minLength(4),
@@ -8,4 +8,4 @@ const SignUpRequestValidation = (input) => {
   }).parse(input);
 };
 
-export default SignUpRequestValidation;
+export default signUpRequestValidation;

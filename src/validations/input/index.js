@@ -1,1 +1,1 @@
-export { default as SignUpRequestValidation } from './signup.validation';
+export { default as signUpRequestValidation } from './signup.validation';
