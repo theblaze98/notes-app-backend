@@ -8,8 +8,6 @@ const createUserService = async ({ username, email, password }) => {
   });
 
   await newUser.save();
-
-  return true;
 };
 
 export default createUserService;
