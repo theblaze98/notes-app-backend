@@ -2,7 +2,7 @@ import { Schema, Types, model } from 'mongoose';
 
 const NoteSchema = new Schema(
   {
-    userID: {
+    createdBy: {
       type: Types.ObjectId,
       required: true,
       inmutable: true,
