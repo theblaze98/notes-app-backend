@@ -1,14 +1,12 @@
 import jwt from 'jsonwebtoken';
 
 class TokenUtilities {
-  #secret = process.env.JWT_SECRET;
-
-  sign(data, options) {
-    return jwt.sign(data, this.#secret, options);
+  sign(data, secret, options) {
+    return jwt.sign(data, secret, options);
   }
 
-  verify(data) {
-    return jwt.verify(data, this.#secret);
+  verify(data, secret) {
+    return jwt.verify(data, secret);
   }
 }
 
