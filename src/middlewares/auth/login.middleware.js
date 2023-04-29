@@ -1,4 +1,4 @@
-import { loginRequestValidation } from '@/validations/input';
+import { loginRequestValidation } from '../../validations/input/index.js';
 import { ZodError } from 'zod';
 
 const loginMiddleware = (req, res, next) => {

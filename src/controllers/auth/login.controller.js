@@ -1,7 +1,7 @@
-import { UnauthorizedError } from '@/errors';
-import { getUserService } from '@/services';
-import { decryptPassword } from '@/utils/password_utilities';
-import TokenUtilities from '@/utils/token_utilities';
+import { UnauthorizedError } from '../../errors/index.js';
+import { getUserService } from '../../services/index.js';
+import { decryptPassword } from '../../utils/password_utilities.js';
+import TokenUtilities from '../../utils/token_utilities.js';
 
 const loginController = async (req, res) => {
   const { email, password } = req.body;

@@ -1,4 +1,4 @@
-import { signUpRequestValidation } from '@/validations/input';
+import { signUpRequestValidation } from '../../validations/input/index.js';
 import { ZodError } from 'zod';
 
 const signupMiddleware = (req, res, next) => {

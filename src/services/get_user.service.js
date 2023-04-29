@@ -1,4 +1,4 @@
-import UserModel from '@/models/User';
+import UserModel from '../models/User.js';
 
 const getUserService = async ({ id, email, username }, { operator }) => {
   if (operator === 'OR') {

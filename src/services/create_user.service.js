@@ -1,4 +1,4 @@
-import UserModel from '../models/User';
+import UserModel from '../models/User.js';
 
 const createUserService = async ({ username, email, password }) => {
   const newUser = new UserModel({

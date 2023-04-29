@@ -1,6 +1,6 @@
-import { BadRequestError } from '@/errors';
-import { createUserService, getUserService } from '@/services';
-import { encryptPassword } from '@/utils/password_utilities';
+import { BadRequestError } from '../../errors/index.js';
+import { createUserService, getUserService } from '../../services/index.js';
+import { encryptPassword } from '../../utils/password_utilities.js';
 
 const signupController = async (req, res) => {
   const { username, email, password } = req.body;

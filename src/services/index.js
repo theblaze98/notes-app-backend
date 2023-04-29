@@ -1,2 +1,2 @@
-export { default as createUserService } from './create_user.service';
-export { default as getUserService } from './get_user.service';
+export { default as createUserService } from './create_user.service.js';
+export { default as getUserService } from './get_user.service.js';
