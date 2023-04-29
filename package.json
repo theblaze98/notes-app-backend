@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/index.js",
-    "dev": "cross-env NODE_ENV=production nodemon"
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,8 @@
   "devDependencies": {
     "dotenv": "^16.0.3",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "standard": "^17.0.0"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
