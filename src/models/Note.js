@@ -17,6 +17,11 @@ const NoteSchema = new Schema(
       type: String,
       required: true,
       trim: true
+    },
+    active: {
+      type: Boolean,
+      default: true,
+      required: true
     }
   },
   { timestamps: true }
