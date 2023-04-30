@@ -1,4 +1,5 @@
 import { Schema, Types, model } from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 
 const NoteSchema = new Schema(
   {
@@ -26,5 +27,7 @@ const NoteSchema = new Schema(
   },
   { timestamps: true }
 );
+
+NoteSchema.plugin(paginate);
 
 export default model('note', NoteSchema);
