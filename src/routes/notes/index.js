@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  createNotesController,
+  createNoteController,
   deleteNoteController
 } from '../../controllers/notes/index.js';
 import createNoteMiddleware from '../../middlewares/note/create_note.middleware.js';
@@ -12,7 +12,7 @@ const router = Router();
 router.post(
   '/new',
   [isAuthenticatedMiddleware, createNoteMiddleware],
-  createNotesController
+  createNoteController
 );
 
 router.delete('/:id', [deleteNoteMiddleware], deleteNoteController);
