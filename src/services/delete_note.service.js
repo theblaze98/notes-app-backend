@@ -1,7 +1,7 @@
-import UserModel from '../models/User.js';
+import NoteModel from '../models/Note.js';
 
 const deleteNoteService = async (noteId) => {
-  const resp = await UserModel.findOneAndUpdate(
+  const resp = await NoteModel.findOneAndUpdate(
     { _id: noteId },
     { active: false }
   );
