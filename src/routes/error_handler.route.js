@@ -1,5 +1,5 @@
 import { ZodError } from 'zod';
-import { BadRequestError, UnauthorizedError } from '../errors';
+import { BadRequestError, UnauthorizedError } from '../errors/index.js';
 
 const errorRouteHandler = (err, req, res) => {
   if (err instanceof ZodError) {
