@@ -8,6 +8,7 @@ import {
 import createNoteMiddleware from '../../middlewares/note/create_note.middleware.js';
 import deleteNoteMiddleware from '../../middlewares/note/delete_note.middleware.js';
 import { isAuthenticatedMiddleware } from '../../middlewares/user/index.js';
+import controllerErrorBoundaries from '../../controllers/controller_error_boundaries_handler.js';
 
 const router = Router();
 
@@ -17,10 +18,22 @@ router.post(
   createNoteController
 );
 
-router.delete('/:id', [deleteNoteMiddleware], deleteNoteController);
+router.delete(
+  '/:id',
+  [deleteNoteMiddleware],
+  controllerErrorBoundaries(deleteNoteController)
+);
 
-router.get('/', [isAuthenticatedMiddleware], getNotesController);
+router.get(
+  '/',
+  [isAuthenticatedMiddleware],
+  controllerErrorBoundaries(getNotesController)
+);
 
-router.get('/:id', [isAuthenticatedMiddleware], getNoteController);
+router.get(
+  '/:id',
+  [isAuthenticatedMiddleware],
+  controllerErrorBoundaries(getNoteController)
+);
 
 export default router;
