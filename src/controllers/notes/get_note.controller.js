@@ -1,5 +1,5 @@
-import { BadRequestError } from '../../errors';
-import { getNoteService } from '../../services';
+import { BadRequestError } from '../../errors/index.js';
+import { getNoteService } from '../../services/index.js';
 
 const getNoteController = async (req, res) => {
   const { id } = req.query;
