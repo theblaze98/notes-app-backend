@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { getNotes } from '../../controllers/noteContoller.js';
 import {
   createNoteController,
   deleteNoteController
@@ -16,5 +17,7 @@ router.post(
 );
 
 router.delete('/:id', [deleteNoteMiddleware], deleteNoteController);
+
+router.get('/', [isAuthenticatedMiddleware], getNotes);
 
 export default router;
