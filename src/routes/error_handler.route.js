@@ -1,7 +1,7 @@
 import { ZodError } from 'zod';
 import { BadRequestError, UnauthorizedError } from '../errors/index.js';
 
-const errorRouteHandler = (err, req, res) => {
+const errorRouteHandler = (err, _req, res, _next) => {
   if (err instanceof ZodError) {
     return res.status(400).json({ message: err.message });
   }
