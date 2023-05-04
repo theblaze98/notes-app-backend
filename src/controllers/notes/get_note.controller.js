@@ -13,7 +13,11 @@ const getNoteController = async (req, res) => {
   res.status(200).json({
     description: noteDB.description,
     title: noteDB.title,
-    createdBy: noteDB.createdBy,
+    createdBy: {
+      username: noteDB.createdBy.username,
+      email: noteDB.createdBy.email,
+      id: noteDB.createdBy._id
+    },
     createdAt: noteDB.createdAt,
     updatedAt: noteDB.updatedAt
   });
