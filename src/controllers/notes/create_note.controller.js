@@ -10,7 +10,8 @@ const createNoteController = async (req, res) => {
   res.status(201).json({
     description: note.description,
     title: note.title,
-    createdAt: note.createdAt
+    createdAt: note.createdAt,
+    id: note._id
   });
 };
 
