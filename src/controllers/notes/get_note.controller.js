@@ -3,11 +3,20 @@ import { getNoteService } from '../../services/index.js';
 
 const getNoteController = async (req, res) => {
   const { id } = req.query;
-  const noteDB = await getNoteService(id);
+  const noteDB = await getNoteService({ id, active: true }).populate({
+    path: 'createdBy',
+    select: 'username email _id'
+  });
   if (!noteDB) {
     throw new BadRequestError('Note not found');
   }
-  res.status(200).json(noteDB);
+  res.status(200).json({
+    description: noteDB.description,
+    title: noteDB.title,
+    createdBy: noteDB.createdBy,
+    createdAt: noteDB.createdAt,
+    updatedAt: noteDB.updatedAt
+  });
 };
 
 export default getNoteController;
