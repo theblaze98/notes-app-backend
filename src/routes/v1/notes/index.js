@@ -20,7 +20,7 @@ router.post(
 
 router.delete(
   '/:id',
-  [deleteNoteMiddleware],
+  [isAuthenticatedMiddleware, deleteNoteMiddleware],
   controllerErrorBoundaries(deleteNoteController)
 );
 
