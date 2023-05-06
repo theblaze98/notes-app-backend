@@ -8,8 +8,8 @@ const signupController = async (req, res) => {
   if (userDB) {
     throw new BadRequestError('Email or Username not available');
   }
-  const hashedPassword = encryptPassword(password);
-  await createUserService({ username, email, hashedPassword });
+  const hashedPassword = await encryptPassword(password);
+  await createUserService({ username, email, password: hashedPassword });
   return res.status(201).json({ message: 'User added successfully' });
 };
 
