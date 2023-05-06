@@ -1,11 +1,12 @@
-import { z } from 'zod';
+import joi from 'joi';
 
 const signUpRequestValidation = (input) => {
-  z.object({
-    email: z.string().email(),
-    username: z.string().minLength(4),
-    password: z.string().minLength(5)
-  }).parse(input);
+  return joi
+    .object({
+      email: joi.string().email().required(),
+      username: joi.string().min(4).required(),
+      password: joi.string().min(5).required()
+    })
+    .validate(input);
 };
-
 export default signUpRequestValidation;
