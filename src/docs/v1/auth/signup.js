@@ -92,6 +92,10 @@ const signup = {
               message: {
                 type: 'string',
                 example: 'Email not available'
+              },
+              error_type: {
+                type: 'string',
+                example: 'Validation'
               }
             }
           }

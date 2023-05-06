@@ -73,6 +73,11 @@ const login = {
               message: {
                 type: 'string',
                 example: 'Invalid credentials'
+              },
+              error_type: {
+                type: 'string',
+                example: 'Validation',
+                required: false
               }
             }
           }

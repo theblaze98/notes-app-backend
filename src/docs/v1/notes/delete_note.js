@@ -77,6 +77,11 @@ const deleteNote = {
               message: {
                 type: 'string',
                 example: 'Note not found'
+              },
+              error_type: {
+                type: 'string',
+                example: 'Validation',
+                required: false
               }
             }
           }

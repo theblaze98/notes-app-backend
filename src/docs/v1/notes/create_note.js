@@ -68,6 +68,11 @@ const createNote = {
               message: {
                 type: 'string',
                 example: 'The token are required'
+              },
+              error_type: {
+                type: 'string',
+                example: 'Validation',
+                required: false
               }
             }
           }
