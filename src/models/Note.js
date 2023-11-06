@@ -1,33 +1,22 @@
 import { Schema, Types, model } from 'mongoose';
-import paginate from 'mongoose-paginate-v2';
 
-const NoteSchema = new Schema(
-  {
-    createdBy: {
-      type: Types.ObjectId,
-      required: true,
-      inmutable: true,
-      ref: 'user'
+const NoteSchema = new Schema({
+    userID: {
+        type: Types.ObjectId,
+        required: true,
+        inmutable: true,
+        res: 'user'
     },
     title: {
-      type: String,
-      required: true,
-      trim: true
+        type: String,
+        required: true,
+        trim: true,
     },
     description: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    active: {
-      type: Boolean,
-      default: true,
-      required: true
+        type: String,
+        required: true,
+        trim: true,
     }
-  },
-  { timestamps: true }
-);
-
-NoteSchema.plugin(paginate);
+}, { timestamps: true });
 
 export default model('note', NoteSchema);
