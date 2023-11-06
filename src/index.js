@@ -9,13 +9,7 @@ const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(
-	cors({
-		origin: 'https://notesappmaki.vercel.app/',
-		allowedHeaders: true,
-		optionsSuccessStatus: 200,
-	})
-)
+app.use(cors())
 
 app.use('/api/users', usersRouter)
 app.use('/api/notes/', notesRoutes)
